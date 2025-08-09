@@ -31,6 +31,69 @@
                     <li><a class="address-link link" href="tel:+110001111111">+11 (000) 111-11-11</a></li>
                 </ul>
             </address>
+            <!-- Mobile menu button -->
+            <button class="mobile-menu-button" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-menu">
+                <svg class="mobile-menu-icon" width="24" height="24">
+                    <use href="./images/icons.svg#icon-burger"></use>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-menu-container">
+                <button class="mobile-menu-close" type="button" data-menu-close>
+                    <svg class="mobile-menu-close-icon" width="8" height="8">
+                        <use href="./images/icons.svg#icon-close"></use>
+                    </svg>
+                </button>
+                
+                <nav class="mobile-nav">
+                    <ul class="mobile-nav-list list">
+                        <li><a class="mobile-nav-link link current" href="./index.html">Studio</a></li>
+                        <li><a class="mobile-nav-link link" href="">Portfolio</a></li>
+                        <li><a class="mobile-nav-link link" href="">Contacts</a></li>
+                    </ul>
+                </nav>
+                
+                <address class="mobile-address">
+                    <ul class="mobile-address-list list">
+                        <li><a class="mobile-address-link link tel" href="tel:+110001111111">+11 (000) 111-11-11</a></li>
+                        <li><a class="mobile-address-link link email" href="mailto:info@devstudio.com">info@devstudio.com</a></li>
+                    </ul>
+                </address>
+                
+                <ul class="mobile-social-list list">
+                    <li class="mobile-social-item">
+                        <a href="#" class="mobile-social-link link">
+                            <svg class="mobile-social-icon" width="24" height="24">
+                                <use href="./images/icons.svg#icon-instagram"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="mobile-social-item">
+                        <a href="#" class="mobile-social-link link">
+                            <svg class="mobile-social-icon" width="24" height="24">
+                                <use href="./images/icons.svg#icon-twitter"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="mobile-social-item">
+                        <a href="#" class="mobile-social-link link">
+                            <svg class="mobile-social-icon" width="24" height="24">
+                                <use href="./images/icons.svg#icon-facebook"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="mobile-social-item">
+                        <a href="#" class="mobile-social-link link">
+                            <svg class="mobile-social-icon" width="24" height="24">
+                                <use href="./images/icons.svg#icon-linkedin"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
 
@@ -467,8 +530,12 @@
                 openModalBtn: document.querySelector("[data-modal-open]"),
                 closeModalBtn: document.querySelector("[data-modal-close]"),
                 modal: document.querySelector("[data-modal]"),
+                openMenuBtn: document.querySelector("[data-menu-open]"),
+                closeMenuBtn: document.querySelector("[data-menu-close]"),
+                menu: document.querySelector("#mobile-menu"),
             };
 
+            // Modal functionality
             refs.openModalBtn.addEventListener("click", toggleModal);
             refs.closeModalBtn.addEventListener("click", toggleModal);
             
@@ -482,10 +549,26 @@
                 if (event.key === "Escape" && refs.modal.classList.contains("is-open")) {
                     toggleModal();
                 }
+                if (event.key === "Escape" && refs.menu.classList.contains("is-open")) {
+                    toggleMobileMenu();
+                }
             });
 
             function toggleModal() {
+                const isModalOpen = refs.modal.classList.contains("is-open");
                 refs.modal.classList.toggle("is-open");
+                document.body.classList.toggle("no-scroll", !isModalOpen);
+            }
+
+            // Mobile menu functionality
+            refs.openMenuBtn.addEventListener("click", toggleMobileMenu);
+            refs.closeMenuBtn.addEventListener("click", toggleMobileMenu);
+
+            function toggleMobileMenu() {
+                const isMenuOpen = refs.menu.classList.contains("is-open");
+                refs.menu.classList.toggle("is-open");
+                refs.openMenuBtn.setAttribute("aria-expanded", !isMenuOpen);
+                document.body.classList.toggle("no-scroll", !isMenuOpen);
             }
         })();
     </script>
